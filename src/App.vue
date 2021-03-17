@@ -6,6 +6,9 @@
       <router-link to="/tabs">Tabs Sheet</router-link>
     </div>
     <router-view/>
+  <div class="footer">
+        <p>https://github.com/HeyImParker/UkuTabs</p>
+  </div>
   </div>
 </template>
 
