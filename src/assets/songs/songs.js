@@ -8,3 +8,5 @@ let songs = [{
     title: "Christmas Waltz",
     file: "./ChristmasWaltz.txt"
 }]
+
+export default songs;
