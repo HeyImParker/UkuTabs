@@ -67,7 +67,6 @@ export default {
           var instance = new ComponentClass({
               propsData: { tab: passedTab , word: passedWord }
           })
-          instance.className = "tab"
           instance.$mount() // pass nothing
 //         console.log(this.$refs)
           pTag.appendChild(instance.$el);
@@ -123,8 +122,5 @@ export default {
 <style>
   .spacer {
     height: .5em;
-  }
-  .tab {
-    display: inline-block;
   }
 </style>
