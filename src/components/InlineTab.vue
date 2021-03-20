@@ -12,9 +12,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-    /* .box {
-        height: 1em;
-    } */
-</style>

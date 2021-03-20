@@ -6,7 +6,7 @@ let songs = [{
 {
     id: 2,
     title: "Christmas Waltz",
-    file: "Use a triplet strum&{C} {Am} {Dm7} {G} & {Em} {A} & Where ever there are words with asterisks use the second row of chords *** Frosted window panes&Candles gleaming inside&Painted candy canes on the tree&Santa's on his way&He's filled his sleigh **with things** &Things for you and for me@It's that time of year&When the world falls in love&Every song you hear seems to say&Merry Christmas&May your New Year dreams come **true** &And this song of mine&In three-quarter time&Wishes you and yours&The same thing too@"
+    file: "Use a triplet strum&{C} {Am} {Dm7} {G} & {Em} {A} & Whereever there are words with asterisks use the second row of chords *** Frosted window panes&Candles gleaming inside&Painted candy canes on the tree&Santa's on his way&He's filled his sleigh **with things** &Things for you and for me@It's that time of year&When the world falls in love&Every song you hear seems to say&Merry Christmas&May your New Year dreams come **true** &And this song of mine&In three-quarter time&Wishes you and yours&The same thing too@"
 },
 {
     id: 3,
