@@ -1,15 +1,10 @@
 <template>
   <div class="song">
     <h1>{{song.title}}</h1>
-    <inline-tab tab="C" word="Word"></inline-tab>
+    <p>this is the only thing <inline-tab tab="C" word="Word"></inline-tab></p>
     <button @click="test()">Test</button>
     <button @click="textReader(song.file)">Load Song</button>
     <div ref="song"></div>
-    <div class="spacer"></div>
-    <hr>
-    <div class="spacer"></div>
-    <div v-html="lyrics"></div>
-    <div class="spacer"></div>
   </div>
 </template>
 
@@ -47,16 +42,15 @@ export default {
 //         console.log(this.$refs)
       this.$refs.song.appendChild(instance.$el);
     },
-    replaceAt(string, index, replacement) {
-      return string.substr(0, index) + replacement + string.substr(index + 1);
-    },
     textReader(string) {
       let j = 0;
+      var pTag = document.createElement('p');
       var newTag;
       for(let i = 0; i < string.length; i++) {
         if(string[i] == "{") {
-          //Finish off last <p>
-          j = this.makePTag(i, j, string);
+          //Finish off last chunk of text
+          pTag.innerHTML += string.substr(j, (i - j))
+          j = i + 1;
           //Find value of props
           while(string[i] != '~') {
             i++;
@@ -73,37 +67,40 @@ export default {
           var instance = new ComponentClass({
               propsData: { tab: passedTab , word: passedWord }
           })
+          instance.className = "tab"
           instance.$mount() // pass nothing
 //         console.log(this.$refs)
-          this.$refs.song.appendChild(instance.$el);
+          pTag.appendChild(instance.$el);
           i++;
           j = i;
-        } else if(string[i] == "&") {
-          j = this.makePTag(i, j, string);
-        } else if(string[i] == "@") {
-          j = this.makePTag(i, j, string);
+        } else if(string[i] == "&") { //start a new line
+          pTag.innerHTML += string.substr(j, (i - j))
+          this.$refs.song.appendChild(pTag);
+          pTag = document.createElement('p');
+          j = i + 1;
+        } else if(string[i] == "@") { //start new line with a line of space
+          pTag.innerHTML += string.substr(j, (i - j))
+          this.$refs.song.appendChild(pTag);
+          pTag = document.createElement('p');
+          j = i + 1;
           newTag = document.createElement('div');
           newTag.classList.add("spacer");
           this.$refs.song.appendChild(newTag);
-        } else if(string[i] == '*') {
+        } else if(string[i] == '*') { //add horizonal break
           i++;
           if(string[i] == '*') {
             i++;
             if(string[i] == '*') {
-              j = this.makePTag(i, j, string);
+              pTag.innerHTML += string.substr(j, (i - j))
+              this.$refs.song.appendChild(pTag);
+              pTag = document.createElement('p');
+              j = i + 1;
               newTag = document.createElement('hr');
               this.$refs.song.appendChild(newTag);
             }
           }
         }
       }
-    },
-    makePTag(i, j, string) {
-      let newTag = document.createElement('p');
-      newTag.innerHTML = string.substr(j, (i - j));
-      console.log(newTag);
-      this.$refs.song.appendChild(newTag);
-      return i += 1;
     },
     find(text,token) {
       for(let i = 0; i < text.length; i++) {
@@ -126,5 +123,8 @@ export default {
 <style>
   .spacer {
     height: .5em;
+  }
+  .tab {
+    display: inline-block;
   }
 </style>

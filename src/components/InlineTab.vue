@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="display:inline-block;">
         <div class="root">
             <div v-on:click="chordCheck()" class="box">
                 <p>{{tab}}</p>
@@ -50,9 +50,6 @@ export default {
 </script>
 
 <style scoped>
-    .root {
-        display: inline;
-    }
     .box {
         height: 2em;
     }
