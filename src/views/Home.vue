@@ -16,3 +16,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .list p {
+    background-color: rgb(31, 155, 238);
+    padding: 1em;
+    margin: .1em auto;
+    max-width: 300px;
+    color: white;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+</style>

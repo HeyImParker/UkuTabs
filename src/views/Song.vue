@@ -1,8 +1,7 @@
 <template>
   <div class="song">
     <h1>{{song.title}}</h1>
-    <p>this is the only thing <inline-tab tab="C" word="Word"></inline-tab></p>
-    <button @click="test()">Test</button>
+    <p><inline-tab tab="C" id="placeholder"></inline-tab></p>
     <button @click="textReader(song.file)">Load Song</button>
     <div ref="song"></div>
   </div>
@@ -43,6 +42,7 @@ export default {
       this.$refs.song.appendChild(instance.$el);
     },
     textReader(string) {
+      document.getElementById("placeholder").remove();
       let j = 0;
       var pTag = document.createElement('p');
       var newTag;
@@ -52,27 +52,20 @@ export default {
           pTag.innerHTML += string.substr(j, (i - j))
           j = i + 1;
           //Find value of props
-          while(string[i] != '~') {
-            i++;
-          }
-          let passedWord = string.substr(j, (i-j));
-          i++;
-          j=i;
           while(string[i] != '}') {
             i++;
           }
           let passedTab = string.substr(j, (i-j));
+          i++;
+          j=i + 1;
           //Create and attach instance
           var ComponentClass = Vue.extend(InlineTab);
           var instance = new ComponentClass({
-              propsData: { tab: passedTab , word: passedWord }
+              propsData: { tab: passedTab }
           })
-          instance.className = "tab"
           instance.$mount() // pass nothing
 //         console.log(this.$refs)
           pTag.appendChild(instance.$el);
-          i++;
-          j = i;
         } else if(string[i] == "&") { //start a new line
           pTag.innerHTML += string.substr(j, (i - j))
           this.$refs.song.appendChild(pTag);
@@ -91,7 +84,7 @@ export default {
           if(string[i] == '*') {
             i++;
             if(string[i] == '*') {
-              pTag.innerHTML += string.substr(j, (i - j))
+              pTag.innerHTML += string.substr(j, (i - j - 2))
               this.$refs.song.appendChild(pTag);
               pTag = document.createElement('p');
               j = i + 1;
@@ -102,20 +95,6 @@ export default {
         }
       }
     },
-    find(text,token) {
-      for(let i = 0; i < text.length; i++) {
-        if(text[i] == token[0]) {
-          for(let j = 0; j < token.length; j++) {
-            if(text[i + j] != token[j]) {
-              break;
-            }
-            if(j == token.length - 1) {
-              return i;
-            }
-          }
-        }
-      }
-    }
   },
 }
 </script>
